@@ -1,13 +1,11 @@
 {
   "name": "android_appdelegate",
   "url": "",
-  "license": "MIT",
+  "license": "closed",
   "tags": [],
   "description": "",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "releasenote": "",
-  "contributors": [""],
-  "dependencies": {
-    msignal
-  }
+  "contributors": ["GameDuell GmbH"],
+  "dependencies": { "msignal" : "" }
 }
