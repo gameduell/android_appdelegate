@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library>
+
+    <supported-haxe-version version="3.1.0+" />
+    <supported-duell-tool version="1.0.0+" />
+
+    <include path="backends/android/duell_library.xml" if="android" />
+
+</library>

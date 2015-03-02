@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project>
-	
-	<dependency name="appdelegate" path="dependencies/android"/>
-	<android extension="org.haxe.extension.AppDelegate" />
-
-	<haxelib name="hxjni" />
-	
-</project>
