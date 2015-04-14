@@ -2,7 +2,7 @@
 <library>
 
     <supported-haxe-version version="3.1.0+" />
-    <supported-duell-tool version="1.0.0+" />
+    <supported-duell-tool version="2.0.0+" />
 
     <supported-build-plugin name="android" version="3.0.0+" />
 
