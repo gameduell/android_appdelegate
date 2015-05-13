@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <library>
 
-    <supported-haxe-version version="3.2.0" />
     <supported-duell-tool version="3.0.0+" />
 
     <supported-build-plugin name="android" version="4.0.0+" />
