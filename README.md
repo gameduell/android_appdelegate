@@ -1,12 +1,8 @@
-= Description =
+## Description
 
-Library for interacting with Haxe code with the Android native lifecycle callbacks.
+This library provides a list of callbacks for Android native lifecycle callbacks.
 
-= Release Log =
-
-== 1.0.0 ==
-
-- Implmemented support for all the relevant Android lifecycle callbacks:
+The callbacks provided are
 -- onCreate
 -- onDestroy
 -- onPause
@@ -16,3 +12,25 @@ Library for interacting with Haxe code with the Android native lifecycle callbac
 -- onStop
 -- onLowMemory
 -- onTrimMemory
+
+## Usage:
+
+Simply retrieve the singleton ("instance()") and register on the signals provided.
+
+## Release Log
+
+### 4.0.0
+
+New duell tool compatibility.
+
+### 3.0.0
+
+New Android build plugin compatibility.
+
+### 2.0.0
+
+New Android build plugin compatibility.
+
+### 1.0.0
+
+Initial release
