@@ -32,6 +32,7 @@ import msignal.Signal;
 /**
     Wraps the logic of the Android activity lifecycle callbacks with signals that the user can bind listeners to.
  */
+@:keep
 class AndroidAppDelegate
 {
     private static var initializeNative = JNI.createStaticMethod("org/haxe/duell/appdelegate/AppDelegate",
