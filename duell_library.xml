@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<library>
+<library xmlns="duell">
 
     <supported-duell-tool version="3.0.0+" />
 
@@ -12,6 +12,10 @@
 
             <activity-extension name="org.haxe.duell.appdelegate.AppDelegate" />
         </android>
+
+        <documentation>
+            <documentation-folder library="android_appdelegate" path="documentation" />
+        </documentation>
 
     </platform-config>
 
