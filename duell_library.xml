@@ -9,6 +9,7 @@
 
         <android>
             <java-source name="APP_DELEGATE" path="java" />
+            <proguard path="proguard.cfg" />
 
             <activity-extension name="org.haxe.duell.appdelegate.AppDelegate" />
         </android>
