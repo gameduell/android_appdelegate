@@ -100,6 +100,11 @@ class AndroidAppDelegate
     public var onTrimMemory(default, null): Signal1<Int>;
 
     /**
+        Called when the activity has detected the user's press of the back key.
+     */
+    public var onBackPressed(default, null): Signal0;
+
+    /**
         Retrieves the instance of the app delegate.
      */
     public static inline function instance(): AndroidAppDelegate
@@ -120,6 +125,7 @@ class AndroidAppDelegate
         onStop = new Signal0();
         onTrimMemory = new Signal1<Int>();
         onLowMemory = new Signal0();
+        onBackPressed = new Signal0();
     }
 
     //
@@ -169,5 +175,10 @@ class AndroidAppDelegate
     public function trimMemory(level: Int): Void
     {
         onTrimMemory.dispatch(level);
+    }
+
+    public function backPressed(): Void
+    {
+        onBackPressed.dispatch();
     }
 }

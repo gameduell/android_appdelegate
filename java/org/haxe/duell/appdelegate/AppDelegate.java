@@ -159,4 +159,13 @@ public class AppDelegate extends Extension
             haxeAppDelegate.call1("trimMemory", level);
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (haxeAppDelegate != null)
+        {
+            haxeAppDelegate.call0("backPressed");
+        }
+    }
 }
