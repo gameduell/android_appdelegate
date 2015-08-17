@@ -181,4 +181,9 @@ class AndroidAppDelegate
     {
         onBackPressed.dispatch();
     }
+
+    public function getBackNumListeners(): Int
+    {
+        return onBackPressed.numListeners;
+    }
 }

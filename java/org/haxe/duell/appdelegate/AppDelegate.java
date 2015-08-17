@@ -29,6 +29,7 @@ package org.haxe.duell.appdelegate;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.haxe.duell.DuellActivity;
 import org.haxe.duell.hxjni.HaxeObject;
 import org.haxe.duell.Extension;
 
@@ -165,7 +166,15 @@ public class AppDelegate extends Extension
     {
         if (haxeAppDelegate != null)
         {
-            haxeAppDelegate.call0("backPressed");
+            if (haxeAppDelegate.callD0("getBackNumListeners") == 0)
+            {
+                DuellActivity.getInstance().defaultOnBack = true;
+            }
+            else
+            {
+                DuellActivity.getInstance().defaultOnBack = false;
+                haxeAppDelegate.call0("backPressed");
+            }
         }
     }
 }
