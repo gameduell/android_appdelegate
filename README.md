@@ -19,6 +19,10 @@ Simply retrieve the singleton ("instance()") and register on the signals provide
 
 ## Release Log
 
+### 4.1.0
+
+Added backbutton callback.
+
 ### 4.0.0
 
 New duell tool compatibility.
