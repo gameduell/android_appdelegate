@@ -19,6 +19,10 @@ Simply retrieve the singleton ("instance()") and register on the signals provide
 
 ## Release Log
 
+### 5.0.0
+
+Major update.
+
 ### 4.1.0
 
 Added backbutton callback.
