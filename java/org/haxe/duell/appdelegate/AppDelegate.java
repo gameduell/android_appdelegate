@@ -49,7 +49,7 @@ public class AppDelegate extends Extension
     {
         try
         {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             DuellActivity.getInstance().startActivity(browserIntent);
         }
         catch(Exception e)
