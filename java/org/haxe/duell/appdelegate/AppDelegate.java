@@ -33,6 +33,9 @@ import org.haxe.duell.DuellActivity;
 import org.haxe.duell.hxjni.HaxeObject;
 import org.haxe.duell.Extension;
 
+import 	android.net.Uri;
+import java.lang.Exception;
+
 public class AppDelegate extends Extension
 {
     public static HaxeObject haxeAppDelegate = null;
@@ -40,6 +43,20 @@ public class AppDelegate extends Extension
     public static void initialize(HaxeObject obj)
     {
         haxeAppDelegate = obj;
+    }
+
+    public static boolean openURLNative(String url)
+    {
+        try
+        {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+            DuellActivity.getInstance().startActivity(browserIntent);
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+        return true;
     }
 
     /**
