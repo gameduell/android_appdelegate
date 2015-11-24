@@ -38,6 +38,10 @@ class AndroidAppDelegate
     private static var initializeNative = JNI.createStaticMethod("org/haxe/duell/appdelegate/AppDelegate",
     "initialize", "(Lorg/haxe/duell/hxjni/HaxeObject;)V");
 
+    private static var openURLNative = JNI.createStaticMethod("org/haxe/duell/appdelegate/AppDelegate",
+    "openURLNative", "(Ljava/lang/String;)Z");
+
+
     // in reality this is a "forced" singleton, since we need to have the static initialization and not the lazy loading
     private static var appDelegateInstance: AndroidAppDelegate = new AndroidAppDelegate();
 
@@ -126,6 +130,13 @@ class AndroidAppDelegate
         onTrimMemory = new Signal1<Int>();
         onLowMemory = new Signal0();
         onBackPressed = new Signal0();
+    }
+    //
+    // native calls
+    //
+    public function openURL(url:String): Bool
+    {
+        return openURLNative(url);
     }
 
     //
