@@ -109,6 +109,35 @@ class AndroidAppDelegate
     public var onBackPressed(default, null): Signal0;
 
     /**
+      * If the app was opened from another app, this property stores the url used to open this app.
+      * The field is null if the app was opened normally.
+      * Put this into the android platform config of your duell_project.xml
+      *
+      *       <manifest-main-activity-intent-filter-section>
+
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+                    <data android:scheme="http"
+                          android:host="www.example.com"
+                          android:pathPrefix="/haxe" />
+                    <!-- note that the leading "/" is required for pathPrefix-->
+                    <!-- Accepts URIs that begin with "example://gizmos” -->
+                    <data android:scheme="example"
+                          android:host="haxe" />
+
+            </manifest-main-activity-intent-filter-section>
+      *
+    */
+    public var lastURLFromApplicationOpening(default, null): String = null;
+
+    /**
+      * Dispatched when the app is opened from another app.
+    **/
+    public var onApplicationDidOpenWithURL(default, null): Signal0;
+
+    /**
         Retrieves the instance of the app delegate.
      */
     public static inline function instance(): AndroidAppDelegate
@@ -130,6 +159,7 @@ class AndroidAppDelegate
         onTrimMemory = new Signal1<Int>();
         onLowMemory = new Signal0();
         onBackPressed = new Signal0();
+        onApplicationDidOpenWithURL = new Signal0();
     }
     //
     // native calls
@@ -146,6 +176,12 @@ class AndroidAppDelegate
     public function create(): Void
     {
         onCreate.dispatch();
+    }
+
+    private function assign_applicationOpeningURL(url: String): Void
+    {
+        lastURLFromApplicationOpening = url;
+        onApplicationDidOpenWithURL.dispatch();
     }
 
     public function destroy(): Void

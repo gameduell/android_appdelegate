@@ -80,7 +80,24 @@ public class AppDelegate extends Extension
         {
             haxeAppDelegate.call0("create");
         }
+
+        handleNewIntent(DuellActivity.getInstance().getIntent());
     }
+
+    protected void handleNewIntent(Intent intent)
+    {
+        String action = intent.getAction();
+        String data = intent.getDataString();
+
+        if (Intent.ACTION_VIEW.equals(action) && data != null)
+        {
+            if (haxeAppDelegate != null)
+            {
+                haxeAppDelegate.call1("assign_applicationOpeningURL", data);
+            }
+        }
+    }
+
 
     /**
      * Perform any final cleanup before an activity is destroyed.
