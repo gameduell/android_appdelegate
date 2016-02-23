@@ -41,9 +41,14 @@ class AndroidAppDelegate
     private static var openURLNative = JNI.createStaticMethod("org/haxe/duell/appdelegate/AppDelegate",
     "openURLNative", "(Ljava/lang/String;)Z");
 
+    private static var setScreenIdleTimerDisabledNative = JNI.createStaticMethod("org/haxe/duell/appdelegate/AppDelegate",
+    "setScreenIdleTimerDisabledNative", "(Z)Z");
+
 
     // in reality this is a "forced" singleton, since we need to have the static initialization and not the lazy loading
     private static var appDelegateInstance: AndroidAppDelegate = new AndroidAppDelegate();
+
+    public var screenIdleTimerDisabled(default, set): Bool;
 
     /**
         Called when the activity is starting.
@@ -149,6 +154,7 @@ class AndroidAppDelegate
     {
         initializeNative(this);
 
+        screenIdleTimerDisabled = false;
         onCreate = new Signal0();
         onDestroy = new Signal0();
         onPause = new Signal0();
@@ -167,6 +173,11 @@ class AndroidAppDelegate
     public function openURL(url:String): Bool
     {
         return openURLNative(url);
+    }
+
+    private function set_screenIdleTimerDisabled(disabled: Bool): Bool
+    {
+        return screenIdleTimerDisabled = setScreenIdleTimerDisabledNative(disabled);
     }
 
     //

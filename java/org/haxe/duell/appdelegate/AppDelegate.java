@@ -27,14 +27,15 @@
 package org.haxe.duell.appdelegate;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.WindowManager;
+
+import java.lang.Exception;
 
 import org.haxe.duell.DuellActivity;
-import org.haxe.duell.hxjni.HaxeObject;
 import org.haxe.duell.Extension;
-
-import 	android.net.Uri;
-import java.lang.Exception;
+import org.haxe.duell.hxjni.HaxeObject;
 
 public class AppDelegate extends Extension
 {
@@ -57,6 +58,45 @@ public class AppDelegate extends Extension
             return false;
         }
         return true;
+    }
+
+    /**
+     * Switches the sleep mode on/off for the active window on the current UI Thread.
+     *
+     * @param disabled Sleep mode enabled with true or disabled with false
+     * @return Bool {@code disabled} on success, otherwise false
+     */
+    public static boolean setScreenIdleTimerDisabledNative(final boolean disabled)
+    {
+        final DuellActivity activity = DuellActivity.getInstance();
+
+        if (activity == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    if (disabled)
+                    {
+                        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    }
+                    else
+                    {
+                        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    }
+                }
+            });
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+        return disabled;
     }
 
     /**
