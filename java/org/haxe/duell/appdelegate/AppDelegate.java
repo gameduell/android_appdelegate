@@ -39,11 +39,13 @@ import org.haxe.duell.hxjni.HaxeObject;
 
 public class AppDelegate extends Extension
 {
-    public static HaxeObject haxeAppDelegate = null;
+    private static HaxeObject haxeAppDelegate = null;
+    private static HaxeEventDispatcher haxeEventDispatcher = null;
 
     public static void initialize(HaxeObject obj)
     {
         haxeAppDelegate = obj;
+        haxeEventDispatcher = new HaxeEventDispatcher(obj);
     }
 
     public static boolean openURLNative(String url)
@@ -116,9 +118,9 @@ public class AppDelegate extends Extension
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("create");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.CREATE);
         }
 
         handleNewIntent(DuellActivity.getInstance().getIntent());
@@ -131,9 +133,9 @@ public class AppDelegate extends Extension
 
         if (Intent.ACTION_VIEW.equals(action) && data != null)
         {
-            if (haxeAppDelegate != null)
+            if (haxeEventDispatcher != null)
             {
-                haxeAppDelegate.call1("assign_applicationOpeningURL", data);
+                haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.ASSIGN_APPLICATION_OPENING_URL, new Object[]{data});
             }
         }
     }
@@ -145,9 +147,9 @@ public class AppDelegate extends Extension
     @Override
     public void onDestroy()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("destroy");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.DESTROY);
         }
     }
 
@@ -158,9 +160,9 @@ public class AppDelegate extends Extension
     @Override
     public void onPause()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("pause");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.PAUSE);
         }
     }
 
@@ -171,9 +173,9 @@ public class AppDelegate extends Extension
     @Override
     public void onRestart()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("restart");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.RESTART);
         }
     }
 
@@ -184,9 +186,9 @@ public class AppDelegate extends Extension
     @Override
     public void onResume()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("resume");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.RESUME);
         }
     }
 
@@ -198,9 +200,9 @@ public class AppDelegate extends Extension
     @Override
     public void onStart()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("start");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.START);
         }
     }
 
@@ -211,34 +213,34 @@ public class AppDelegate extends Extension
     @Override
     public void onStop()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("stop");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.STOP);
         }
     }
 
     @Override
     public void onLowMemory()
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call0("lowMemory");
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.LOW_MEMORY);
         }
     }
 
     @Override
     public void onTrimMemory(int level)
     {
-        if (haxeAppDelegate != null)
+        if (haxeEventDispatcher != null)
         {
-            haxeAppDelegate.call1("trimMemory", level);
+            haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.TRIM_MEMORY, new Object[]{(Integer)level});
         }
     }
 
     @Override
     public void onBackPressed()
     {
-        if (haxeAppDelegate != null)
+        if (haxeAppDelegate != null && haxeEventDispatcher != null)
         {
             if (haxeAppDelegate.callD0("getBackNumListeners") == 0)
             {
@@ -247,7 +249,7 @@ public class AppDelegate extends Extension
             else
             {
                 DuellActivity.getInstance().defaultOnBack = false;
-                haxeAppDelegate.call0("backPressed");
+                haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.BACK_PRESSED);
             }
         }
     }
