@@ -242,15 +242,22 @@ public class AppDelegate extends Extension
     {
         if (haxeAppDelegate != null && haxeEventDispatcher != null)
         {
-            if (haxeAppDelegate.callD0("getBackNumListeners") == 0)
+            DuellActivity.getInstance().queueOnHaxeThread(new Runnable()
             {
-                DuellActivity.getInstance().defaultOnBack = true;
-            }
-            else
-            {
-                DuellActivity.getInstance().defaultOnBack = false;
-                haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.BACK_PRESSED);
-            }
+                @Override
+                public void run()
+                {
+                    if (haxeAppDelegate.callD0("getBackNumListeners") == 0)
+                    {
+                        DuellActivity.getInstance().defaultOnBack = true;
+                    }
+                    else
+                    {
+                        DuellActivity.getInstance().defaultOnBack = false;
+                        haxeEventDispatcher.dispatchEvent(HaxeEventDispatcher.EventType.BACK_PRESSED);
+                    }
+                }
+            });
         }
     }
 }
