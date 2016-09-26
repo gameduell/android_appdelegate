@@ -19,6 +19,10 @@ Simply retrieve the singleton ("instance()") and register on the signals provide
 
 ## Release Log
 
+### 7.0.0
+
+Major Android update.
+
 ### 6.0.0
 
 Major Android update.
